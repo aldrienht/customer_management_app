@@ -1,8 +1,12 @@
 class CustomersController < ApplicationController
   before_action :set_customer, only: %i[ show edit update destroy ]
 
+  helper_method :sort_column, :sort_direction
+
   def index
-    @customers = Customer.all
+    @customers = Customer.order("#{sort_column} #{sort_direction}")
+                  .page(params[:page])
+                  .per(5)
   end
 
   def show
@@ -46,6 +50,14 @@ class CustomersController < ApplicationController
   end
 
   private
+
+  def sort_column
+    %w[first_name last_name phone_number date_of_birth].include?(params[:sort]) ? params[:sort] : "last_name"
+  end
+
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+  end
   
   def set_customer
     @customer = Customer.find(params[:id])

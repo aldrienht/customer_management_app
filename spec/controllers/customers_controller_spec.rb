@@ -28,6 +28,22 @@ RSpec.describe CustomersController, type: :controller do
       expect(assigns(:customers)).to be_present
       expect(response).to render_template(:index)
     end
+
+    it "assigns @customers with pagination" do
+      get :index, params: { page: 1 }
+      expect(assigns(:customers)).to include(customer1, customer2)
+      expect(assigns(:customers).current_page).to eq(1)
+    end
+
+    it "sorts by last_name by default" do
+      get :index
+      expect(assigns(:customers).first.last_name).to eq("Asc")
+    end
+
+    it "sorts dynamically when params are passed" do
+      get :index, params: { sort: "first_name", direction: "desc" }
+      expect(assigns(:customers).first.first_name).to eq("Zion")
+    end
   end
 
   describe "GET #show" do
