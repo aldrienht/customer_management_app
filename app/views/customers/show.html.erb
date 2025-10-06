@@ -1,10 +1,16 @@
-<p style="color: green"><%= notice %></p>
-
-<%= render @customer %>
-
-<div>
-  <%= link_to "Edit this customer", edit_customer_path(@customer) %> |
-  <%= link_to "Back to customers", customers_path %>
-
-  <%= button_to "Destroy this customer", @customer, method: :delete %>
+<div class="card mt-5 w-50 mx-auto">
+  <div class="card-header">
+    <h2>Customer Details</h2>
+  </div>
+  <div class="card-body">
+    <p><strong>First Name:</strong> <%= @customer.first_name %></p>
+    <p><strong>Last Name:</strong> <%= @customer.last_name %></p>
+    <p><strong>Date of Birth:</strong> <%= @customer.date_of_birth.strftime("%m/%d/%Y") if @customer.date_of_birth %></p>
+    <p><strong>Phone Number:</strong> <%= @customer.phone_number %></p>
+  </div>
+  <div class="card-footer d-flex justify-content-end">
+    <%= link_to "Back", customers_path, class: "btn btn-sm btn-secondary me-1" %>
+    <%= link_to "Edit", edit_customer_path(@customer), class: "btn btn-sm btn-secondary me-1" %>
+    <%= link_to "Delete", @customer, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-danger" %>
+  </div>
 </div>

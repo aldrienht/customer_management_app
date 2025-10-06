@@ -1,11 +1,8 @@
-<% content_for :title, "New customer" %>
-
-<h1>New customer</h1>
-
-<%= render "form", customer: @customer %>
-
-<br>
-
-<div>
-  <%= link_to "Back to customers", customers_path %>
+<div class="card mt-5 w-50 mx-auto">
+  <div class="card-header">
+    <h2>New customer</h2>
+  </div>
+  <div class="card-body">
+    <%= render "form", customer: @customer %>
+  </div>
 </div>
